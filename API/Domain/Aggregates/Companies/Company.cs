@@ -17,6 +17,10 @@ namespace Domain.Aggregates.Companies
 
         public string EmailAddress { get; set; }
 
+        public List<Package> Packages { get; set; }
+
+        public List<TimeSlot> TimeSlots { get; set; }
+
         public Company()
         {
         }

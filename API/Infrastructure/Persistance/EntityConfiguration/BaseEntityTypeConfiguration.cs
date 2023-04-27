@@ -12,9 +12,10 @@ namespace Infrastructure.Persistance.EntityConfiguration
     public class BaseEntityTypeConfiguration<TEntity> : IEntityTypeConfiguration<TEntity>
          where TEntity : Entity
     {
-        public void Configure(EntityTypeBuilder<TEntity> builder)
+        public virtual void Configure(EntityTypeBuilder<TEntity> builder)
         {
-            throw new NotImplementedException();
+            builder.HasKey(o => o.Id);
+            builder.Ignore(o => o.DomainEvents);
         }
     }
 }

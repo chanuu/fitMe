@@ -3,6 +3,7 @@ using System;
 using Infrastructure.Persistance;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace API.Migrations
 {
     [DbContext(typeof(ApiContext))]
-    partial class ApiContextModelSnapshot : ModelSnapshot
+    [Migration("20230427103115__pacges")]
+    partial class _pacges
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -82,33 +85,6 @@ namespace API.Migrations
                     b.ToTable("Package");
                 });
 
-            modelBuilder.Entity("Domain.Aggregates.Companies.TimeSlot", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("CompanyId")
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("End")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("boolean");
-
-                    b.Property<string>("Start")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CompanyId");
-
-                    b.ToTable("TimeSlot");
-                });
-
             modelBuilder.Entity("Domain.Aggregates.Companies.Package", b =>
                 {
                     b.HasOne("Domain.Aggregates.Companies.Company", null)
@@ -118,20 +94,9 @@ namespace API.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Domain.Aggregates.Companies.TimeSlot", b =>
-                {
-                    b.HasOne("Domain.Aggregates.Companies.Company", null)
-                        .WithMany("TimeSlots")
-                        .HasForeignKey("CompanyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("Domain.Aggregates.Companies.Company", b =>
                 {
                     b.Navigation("Packages");
-
-                    b.Navigation("TimeSlots");
                 });
 #pragma warning restore 612, 618
         }
