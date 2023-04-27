@@ -1,4 +1,6 @@
 ﻿using API.Installers;
+using Domain.Aggregates.Companies;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 
@@ -21,6 +23,8 @@ namespace API
 
             // register All Installers
             installers.ForEach(x => x.InstallService(services, Configuration));
+
+          
 
             //// Register service that implment IScopedService,ITransientServices 
             //services.AddServices();

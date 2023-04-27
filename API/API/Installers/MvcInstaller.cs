@@ -1,4 +1,5 @@
 ﻿using FluentValidation.AspNetCore;
+using Infrastructure.Services;
 using MediatR;
 using System.Reflection;
 
@@ -12,9 +13,9 @@ namespace API.Installers
             //.AddNewtonsoftJson()
              .AddFluentValidation(fv => fv.RegisterValidatorsFromAssembly(typeof(Startup).Assembly));
 
-             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-
-             services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()));
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            services.AddServices();
+            services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()));
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
         }

@@ -20,7 +20,6 @@
   <ItemGroup>
     <Folder Include="Cors\" />
     <Folder Include="Platfrom\" />
-    <Folder Include="Services\" />
     <Folder Include="Persistance\Repositories\" />
   </ItemGroup>
 
