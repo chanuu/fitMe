@@ -1,6 +1,7 @@
 ﻿using Application.Abstraction.Domain.Companies;
 using Application.Abstraction.Platfrom;
 using Domain.Aggregates.Companies;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,29 +35,25 @@ namespace Infrastructure.Persistance.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<List<Company>> GetAllAsync()
+        public async Task<List<Company>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            return await _context.Company.ToListAsync();
         }
 
-        public Task<List<Company>> GetAllAsyncByCustomer(Guid companyId)
+        
+        public async Task<Company> GetAsync(Guid companyId)
         {
-            throw new NotImplementedException();
+            return await _context.Company.FirstOrDefaultAsync(o => o.Id == companyId);
         }
 
-        public Task<Company> GetAsync(Guid companyId)
+        public void Remove(Company company)
         {
-            throw new NotImplementedException();
+            _context.Company.Remove(company);
         }
 
-        public void RemoveOrderItem(List<Company> items)
+        public  void Update(Company company)
         {
-            throw new NotImplementedException();
-        }
-
-        public Task<Company> Update(Company company)
-        {
-            throw new NotImplementedException();
+            _context.Company.Update(company);
         }
     }
 }
