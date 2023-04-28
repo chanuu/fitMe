@@ -19,6 +19,10 @@ namespace Infrastructure.Persistance
         public DbSet<Company> Company {get;set;}
         public DbSet<User> User { get;set;}
 
+        public DbSet<CompanyConfiguration> CompanyConfiguration { get;set;}
+
+        public DbSet<Package> Package { get;set;}
+
         public ApiContext(DbContextOptions<ApiContext> options) : base(options) { }
 
         public ApiContext(DbContextOptions<ApiContext> options, IMediator mediator) : base(options)
@@ -38,5 +42,7 @@ namespace Infrastructure.Persistance
 
             return true;
         }
+
+
     }
 }

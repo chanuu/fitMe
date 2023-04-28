@@ -18,7 +18,7 @@ namespace API.Commands.Users.GetUserById
 
         public async Task<Domain.Aggregates.User.User> Handle(GetUserByIdQuery request, CancellationToken cancellationToken)
         {
-            var user = await _UserRepository.GetAsync(request.UserId);
+            var user = await _UserRepository.GetAsync(request.id);
 
             return user;
         }
