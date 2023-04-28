@@ -1,5 +1,6 @@
 ﻿using Application.Abstraction.Platfrom;
 using Domain.Aggregates.Companies;
+using Domain.Aggregates.User;
 using Infrastructure.Persistance.EntityConfiguration;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -16,6 +17,7 @@ namespace Infrastructure.Persistance
         private readonly IMediator _mediator;
 
         public DbSet<Company> Company {get;set;}
+        public DbSet<User> User { get;set;}
 
         public ApiContext(DbContextOptions<ApiContext> options) : base(options) { }
 
