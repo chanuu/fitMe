@@ -1,5 +1,6 @@
 ﻿using API.Commands.Company.CreateCompanies;
 using API.Commands.Users.CreateUser;
+using API.Commands.Users.DeleteUser;
 using API.Commands.Users.GetAllUsers;
 using API.Commands.Users.GetUserById;
 using API.Commands.Users.UpdateUser;
@@ -24,24 +25,19 @@ namespace API.Controllers.V1
             _mediator = mediator;
             _mapper = mapper;
         }
-        
 
-        [HttpGet(Routes.Users.Get)]
-        public async Task<IActionResult> Get(Guid Id)
+        //Get user by Id
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Get(Guid id)
         {
-            var user = new GetUserByIdQuery { UserId = Id };
-            var userId = await _mediator.Send(user);
+            var query = new GetUserByIdQuery { id = id };
+            var user = await _mediator.Send(query);
 
-            if (userId == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(userId);
+            return user != null ? Ok(user) : NotFound("Cannot Find User Related to the Given Id");
         }
 
         //Create new user 
-        [HttpPost]
+        [HttpPost("Create")]
         public async Task<IActionResult> Create([FromBody] CreateUserCommand command)
         {
             var user = await _mediator.Send(command);
@@ -51,33 +47,37 @@ namespace API.Controllers.V1
 
         }
 
+        //Get all users
         [HttpGet(Routes.Users.GetAll)]
         public async Task<IActionResult> GetAllUsers()
         {
 
-            var user = new GetAllUsersQuery();
-            var userId = await _mediator.Send(user);
+            var query = new GetAllUsersQuery();
+            var user = await _mediator.Send(query);
 
-            if (userId == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(userId);
+            return user != null ? Ok(user) : NotFound("Cannot Find User Related to the Given Id");
 
         }
 
+        //Update user by id
         [HttpPut("id")]
-        public async Task<IActionResult> UpdateUser(Guid id, UpdateUserCommand command)
+        public async Task<IActionResult> UpdateUser( [FromBody] UpdateUserCommand command)
         {
-            if (id != command.UserId)
-            {
-                return BadRequest();
-            }
+           
+            var user = await _mediator.Send(command);
 
-            await _mediator.Send(command);
-
-            return NoContent();
+            return user != null ? Ok(user) : NotFound("Cannot Find User Related to the Given Id");
         }
+
+        // Delete user by id
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteUser(Guid id)
+        {
+            var command = new DeleteUserCommand { Id = id };
+            var user = await _mediator.Send(command);
+
+            return user != null ? Ok(user) : NotFound("Cannot Find User Related to the Given Id");
+        }
+            
     }
 }

@@ -1,5 +1,4 @@
 ﻿using Application.Abstraction.Domain.Users;
-using Domain.Aggregates.User;
 using MediatR;
 
 namespace API.Commands.Users.UpdateUser
@@ -13,24 +12,24 @@ namespace API.Commands.Users.UpdateUser
             _userRepository = userRepository;
         }
 
-        public async Task<Unit> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
+        public async Task<Domain.Aggregates.User.User> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
         {
-            
-               var user = await _userRepository.GetAsync(request.UserId);
-
-                if (user == null)
-                {
-                    throw new Exception();
-                }
+            var user = await _userRepository.GetAsync(request.Id);
+            if (user == null)
+            {
+                return null;
+            }
 
             user.UserName = request.UserName;
             user.FullName = request.FullName;
             user.ContactNumber = request.ContactNumber;
 
             _userRepository.Update(user);
-            await _userRepository.UnitOfWork.SaveChangesAsync();
+            await _userRepository.UnitOfWork.SaveChangesAsync(cancellationToken);
 
-            return Unit.Value;
+            return user;
         }
+
+        
     }
 }

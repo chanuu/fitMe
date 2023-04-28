@@ -49,6 +49,59 @@ namespace API.Migrations
                     b.ToTable("Company");
                 });
 
+            modelBuilder.Entity("Domain.Aggregates.Companies.CompanyConfiguration", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("CloseTime")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("MaximumCapacity")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("OpenTime")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("TimeSlotLength")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CompanyConfiguration");
+                });
+
+            modelBuilder.Entity("Domain.Aggregates.Companies.Package", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("CompanyId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<double>("Price")
+                        .HasColumnType("double precision");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Package");
+                });
+
             modelBuilder.Entity("Domain.Aggregates.User.User", b =>
                 {
                     b.Property<Guid>("Id")
