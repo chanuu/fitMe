@@ -26,5 +26,7 @@ namespace API.Commands.Company.CreateCompanies
             TeleNo = teleNo;
             EmailAddress = emailAddress;
         }
+
+       
     }
 }
