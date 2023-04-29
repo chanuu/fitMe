@@ -12,7 +12,7 @@ namespace Application.Abstraction.Domain.Companies
     {
         Company Add(Company company);
 
-        Task<Company> Update(Company company);
+        void Update(Company company);
 
         Task<Company> ConfirmAsync(Guid companyId);
 
@@ -20,8 +20,7 @@ namespace Application.Abstraction.Domain.Companies
 
         Task<List<Company>> GetAllAsync();
 
-        Task<List<Company>> GetAllAsyncByCustomer(Guid companyId);
-
-        void RemoveOrderItem(List<Company> items);
+     
+        void Remove(Company company);
     }
 }
