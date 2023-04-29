@@ -43,9 +43,17 @@
             public const string GetAllTimeSlots = Base + "/company/{id}/timeslots";
             public const string GetAvaibleTimeSlots = Base + "/company/{id}/timeslots/open";
             public const string GetBookedTimeSlots = Base + "/company/{id}/timeslots/book";
-            public const string ReserveTimeSlot = Base + "/company/{id}/timeslots/{id}/book";
+            public const string ReserveTimeSlot = Base + "/company/{id}/timeslots/{tid}/book";
 
 
+        }
+
+        public static class SearchAPI
+        {
+            public const string SearchGym = Base + "/gym/search";
+            public const string SearchPackge = Base + "/Package/search";
+            public const string Workout = Base + "/workout/search";
+            public const string Instructor = Base + "/instructor/search";
         }
 
         public static class Goals
